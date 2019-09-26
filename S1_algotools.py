@@ -25,17 +25,23 @@ import numpy as np
 
 def average_above_zero(table):
     ##
-    #Function that calculates the table average without values < 0
+    #Function that calculates the table average of positive values
     #Args:
     #    @param table: the list to calculate the average
     #Returns the average 
+    #Raises Value error if input param is not a list, if there's no positive value in table
+    if not(isinstance(table,list)):
+        raise ValueError('average_above_zero, expected a list as input')
+    
     som=0
     n=0
     
     for i in range(len(table)):
         if table[i] > 0:
             som += table[i]
-            n += 1    
+            n += 1
+    if n==0:
+        raise ValueError('average_above_zero, expected at least 1 positive value')        
     return som/n
 
 def max_value(table):
@@ -44,6 +50,10 @@ def max_value(table):
     #Args:
     #    @param table: the list to calculate the max
     #Returns the max value and the index
+    #Raises Value error if input param is not a list
+    if not(isinstance(table,list)):
+        raise ValueError('max_value, expected a list as input')
+    
     max=table[0]
     index=0
     for i in range(len(table)):
@@ -58,6 +68,10 @@ def reverse_table(table):
     #Args:
     #    @param table: the table to reverse
     #Returns the reversed table
+    #Raises Value error if input param is not a list
+    if not(isinstance(table,list)):
+        raise ValueError('reverse_table, expected a list as input')
+    
     for i in range(len(table)):
         #save last value of the table
         last_value=table[len(table)-1]
