@@ -38,7 +38,24 @@ def average_above_zero(table:list):
             n += 1    
     return som/n
 
+def max_value(table:list):
+    ##
+    #Function that get the max value with its index
+    #Args:
+    #    @param table: the list to calculate the max
+    #Returns the max value and the index
+    max=table[0]
+    index=0
+    for i in range(len(table)):
+        if table[i] > max:
+            max = table[i]
+            index=i
+    return max, index
+
+#test section
 tab_list=np.array([1,2,3,-4,6,-9])
 #tab_zero=np.zeros(12, dtype=np.int16)
 
 print('Average above 0 : {average} '.format(average=average_above_zero(tab_list)))
+max,index=max_value(tab_list)
+print('Max value : {max} at index {index}'.format(max=max,index=index))
