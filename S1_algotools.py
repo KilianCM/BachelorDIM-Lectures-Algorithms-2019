@@ -23,12 +23,12 @@ Error : divide by 0 is impossible (N keep 0 as value)
 import numpy as np
 
 
-def average_above_zero(table:list):
+def average_above_zero(table):
     ##
     #Function that calculates the table average without values < 0
     #Args:
     #    @param table: the list to calculate the average
-    #Returns the average    
+    #Returns the average 
     som=0
     n=0
     
@@ -38,7 +38,7 @@ def average_above_zero(table:list):
             n += 1    
     return som/n
 
-def max_value(table:list):
+def max_value(table):
     ##
     #Function that get the max value with its index
     #Args:
@@ -52,10 +52,29 @@ def max_value(table:list):
             index=i
     return max, index
 
+def reverse_table(table):
+    ##
+    #Function that reverses a table
+    #Args:
+    #    @param table: the table to reverse
+    #Returns the reversed table
+    for i in range(len(table)):
+        #save last value of the table
+        last_value=table[len(table)-1]
+        #remove last value of the table
+        table.pop()
+        #insert the saved value a the current index
+        table.insert(i, last_value)
+    return table
+    
+
 #test section
-tab_list=np.array([1,2,3,-4,6,-9])
+#tab_list=np.array([1,2,3,-4,6,-9])
+tab_list=[1,2,3,-4,6,-9]
 #tab_zero=np.zeros(12, dtype=np.int16)
 
 print('Average above 0 : {average} '.format(average=average_above_zero(tab_list)))
 max,index=max_value(tab_list)
 print('Max value : {max} at index {index}'.format(max=max,index=index))
+print('Normal : {tab}'.format(tab=tab_list))
+print('Reverse : {reverse}'.format(reverse=reverse_table(tab_list)))
