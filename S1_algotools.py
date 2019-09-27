@@ -22,7 +22,7 @@ Error : divide by 0 is impossible (N keep 0 as value)
 '''
 import numpy as np
 import cv2
-
+import random
 
 def average_above_zero(table):
     ##
@@ -126,6 +126,27 @@ def roi_bbox(input_image):
                     min_row_idx = idx_row
     return np.array([[min_row_idx, min_col_idx], [min_row_idx, max_col_idx], [max_row_idx, max_col_idx], [max_row_idx, min_col_idx]])
 
+def random_fill_sparse(table, k):
+    ##
+    #Function that fills randomly the table by 'X'
+    #Args:
+    #    @param table: the numpy array to fill
+    #    @param k: the number of 'X'
+    #Returns a numpy array filled with some 'X'
+    #Raises Value error if input param is not a numpy aray, if the array is empty and if k is not an integer
+    if not(isinstance(table,np.ndarray)):
+        raise ValueError('random_fill_sparse, expected a numpy array as input')
+    if len(table) == 0:
+        raise ValueError('random_fill_sparse, expected a non empty array as input')
+    if not(isinstance(k,int)):
+        raise ValueError('random_fill_sparse, expected an integer for param k')
+
+    for i in range(k):
+        rand_row = random.randint(0,table.shape[0]-1)
+        rand_col = random.randint(0,table.shape[1]-1)
+        table[rand_row][rand_col] = 0
+    return table
+    
 #######################               
 #test section
 #######################
@@ -153,3 +174,9 @@ img=cv2.imread('img.png',0)
 #cv2.imshow('read image', img)
 #cv2.waitKey()
 print('Bounding box : {bbox}'.format(bbox=roi_bbox(img)))
+
+###Random array filling test
+
+a = np.ones((10,10),dtype=np.uint8)
+a *= 32 #ascii code for space
+print('Fill  : {filled}'.format(filled=random_fill_sparse(a,20)))
