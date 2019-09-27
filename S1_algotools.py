@@ -21,6 +21,7 @@ Error : divide by 0 is impossible (N keep 0 as value)
 
 '''
 import numpy as np
+import cv2
 
 
 def average_above_zero(table):
@@ -80,12 +81,13 @@ def reverse_table(table):
     if len(table) == 0:
         raise ValueError('reverse_table, expected a non empty list as input')
           
-    len_table = len(table)    
-    for i in range(len_table):
+    len_table = len(table)
+    turns = int(len_table/2)    
+    for i in range(turns):
         temp=table[i]
-        table[i]=table[len_table-1]
-        table[len_table-1]=temp
-        print(table)
+        opp_id = len_table-i-1 
+        table[i]=table[opp_id]
+        table[opp_id]=temp
     return table
  
     
@@ -94,39 +96,60 @@ def roi_bbox(input_image):
     #Function that computes the bounding box of an image
     #Args:
     #    @param input_image: the numpy array to compute the bounding box
-    #Returns a numpy array (the bounding box)
+    #Returns a numpy array (the bounding box [left top, right top, bottom right, bottom left])
     #Raises Value error if input param is not a numpy aray and if the array is empty
     if not(isinstance(input_image,np.ndarray)):
         raise ValueError('roi_bbox, expected a numpy array as input')
     if len(input_image) == 0:
         raise ValueError('roi_bbox, expected a non empty array as input')
-    len_input_image = len(input_image)
-    left_top = [0,0]
-    right_top = [0, len(input_image[0])]
-    left_bottom = [len_input_image,0]
-    right_bottom = [len_input_image, len(input_image[len_input_image - 1])]
-    return np.array([left_top, left_bottom, right_bottom, right_top])
     
+    shape_row=input_image.shape[0]
+    shape_col=input_image.shape[1]
     
+    # Initialize max and min values
+    min_col_idx=shape_col
+    min_row_idx=shape_row
+    max_col_idx=0
+    max_row_idx=0
     
+    for idx_row in range(shape_row):
+        for idx_col in range(shape_col):
+            pix_val = input_image[idx_row, idx_col]
+            if pix_val == 255:
+                if idx_col > max_col_idx:
+                    max_col_idx = idx_col
+                if idx_row > max_row_idx:
+                    max_row_idx = idx_row
+                if idx_col < min_col_idx:
+                    min_col_idx = idx_col
+                if idx_row < min_row_idx:
+                    min_row_idx = idx_row
+    return np.array([[min_row_idx, min_col_idx], [min_row_idx, max_col_idx], [max_row_idx, max_col_idx], [max_row_idx, min_col_idx]])
 
+#######################               
 #test section
+#######################
+
 #tab_list=np.array([1,2,3,-4,6,-9])
 tab_list=[1,2,3,-4,6,-9]
 #tab_zero=np.zeros(12, dtype=np.int16)
 
+###Average test
 print('Average above 0 : {average} '.format(average=average_above_zero(tab_list)))
+
+###Max test
 max,index=max_value(tab_list)
 print('Max value : {max} at index {index}'.format(max=max,index=index))
+
+###Reverse test
 print('Normal : {tab}'.format(tab=tab_list))
 print('Reverse : {reverse}'.format(reverse=reverse_table(tab_list)))
 
-image = np.array([[0, 0, 0, 0, 0, 0, 0],
-                  [0, 1, 1, 0, 0, 0, 0],
-                  [1, 1, 1, 1, 0, 0, 0],
-                  [0, 0, 1, 1, 1, 0, 0],
-                  [0, 0, 1, 1, 1, 0, 0],
-                  [0, 0, 0, 0, 0, 0, 0],
-                  [0, 0, 1, 1, 1, 0, 0]]) 
-
-print('Bounding box : {bbox}'.format(bbox=roi_bbox(image)))
+###Bounding box test
+#mat = np.zeros(100,100)
+matrix=np.zeros((10,10),dtype=np.int32)
+matrix[3:6, 4:8]=np.ones((3,4), dtype=np.int32)
+img=cv2.imread('img.png',0)
+#cv2.imshow('read image', img)
+#cv2.waitKey()
+print('Bounding box : {bbox}'.format(bbox=roi_bbox(img)))
