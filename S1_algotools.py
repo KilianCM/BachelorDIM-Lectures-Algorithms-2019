@@ -32,6 +32,10 @@ def average_above_zero(table):
     #Raises Value error if input param is not a list, if there's no positive value in table
     if not(isinstance(table,list)):
         raise ValueError('average_above_zero, expected a list as input')
+    if len(table) == 0:
+        raise ValueError('average_above_zero, expected a non empty list as input')
+    if not(isinstance(table[0], (int,float))):
+        raise ValueError('average_above_zero, expected a list of numbers')
     
     som=0
     n=0
@@ -53,7 +57,9 @@ def max_value(table):
     #Raises Value error if input param is not a list
     if not(isinstance(table,list)):
         raise ValueError('max_value, expected a list as input')
-    
+    if len(table) == 0:
+        raise ValueError('max_value, expected a non empty list as input')
+        
     max=table[0]
     index=0
     for i in range(len(table)):
@@ -71,7 +77,9 @@ def reverse_table(table):
     #Raises Value error if input param is not a list
     if not(isinstance(table,list)):
         raise ValueError('reverse_table, expected a list as input')
-    
+    if len(table) == 0:
+        raise ValueError('reverse_table, expected a non empty list as input')
+          
     for i in range(len(table)):
         #save last value of the table
         last_value=table[len(table)-1]
@@ -80,6 +88,22 @@ def reverse_table(table):
         #insert the saved value a the current index
         table.insert(i, last_value)
     return table
+ 
+    
+def roi_bbox(input_image):
+    if not(isinstance(input_image,np.ndarray)):
+        raise ValueError('roi_bbox, expected a numpy array as input')
+    if len(input_image) == 0:
+        raise ValueError('roi_bbox, expected a non empty array as input')
+    bbox = np.array([])
+    for i in range(len(input_image)):
+        for j in range(len(input_image[i])):
+            pixel=input_image[i][j]
+            print(pixel)
+    #Work in progress
+    return 0
+    
+    
     
 
 #test section
@@ -92,3 +116,13 @@ max,index=max_value(tab_list)
 print('Max value : {max} at index {index}'.format(max=max,index=index))
 print('Normal : {tab}'.format(tab=tab_list))
 print('Reverse : {reverse}'.format(reverse=reverse_table(tab_list)))
+
+image = np.array([[0, 0, 0, 0, 0, 0, 0],
+                  [0, 1, 1, 0, 0, 0, 0],
+                  [1, 1, 1, 1, 0, 0, 0],
+                  [0, 0, 1, 1, 1, 0, 0],
+                  [0, 0, 1, 1, 1, 0, 0],
+                  [0, 0, 0, 0, 0, 0, 0],
+                  [0, 0, 1, 1, 1, 0, 0]]) 
+
+print(roi_bbox(image))    
