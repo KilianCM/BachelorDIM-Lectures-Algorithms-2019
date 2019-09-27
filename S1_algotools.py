@@ -29,7 +29,7 @@ def average_above_zero(table):
     #Args:
     #    @param table: the list to calculate the average
     #Returns the average 
-    #Raises Value error if input param is not a list, if there's no positive value in table
+    #Raises Value error if input param is not a list, if the list is empty and if there's no positive value in table
     if not(isinstance(table,list)):
         raise ValueError('average_above_zero, expected a list as input')
     if len(table) == 0:
@@ -54,7 +54,7 @@ def max_value(table):
     #Args:
     #    @param table: the list to calculate the max
     #Returns the max value and the index
-    #Raises Value error if input param is not a list
+    #Raises Value error if input param is not a list and if the list is empty
     if not(isinstance(table,list)):
         raise ValueError('max_value, expected a list as input')
     if len(table) == 0:
@@ -74,34 +74,38 @@ def reverse_table(table):
     #Args:
     #    @param table: the table to reverse
     #Returns the reversed table
-    #Raises Value error if input param is not a list
+    #Raises Value error if input param is not a list and if the list is empty
     if not(isinstance(table,list)):
         raise ValueError('reverse_table, expected a list as input')
     if len(table) == 0:
         raise ValueError('reverse_table, expected a non empty list as input')
           
-    for i in range(len(table)):
-        #save last value of the table
-        last_value=table[len(table)-1]
-        #remove last value of the table
-        table.pop()
-        #insert the saved value a the current index
-        table.insert(i, last_value)
+    len_table = len(table)    
+    for i in range(len_table):
+        temp=table[i]
+        table[i]=table[len_table-1]
+        table[len_table-1]=temp
+        print(table)
     return table
  
     
 def roi_bbox(input_image):
+    ##
+    #Function that computes the bounding box of an image
+    #Args:
+    #    @param input_image: the numpy array to compute the bounding box
+    #Returns a numpy array (the bounding box)
+    #Raises Value error if input param is not a numpy aray and if the array is empty
     if not(isinstance(input_image,np.ndarray)):
         raise ValueError('roi_bbox, expected a numpy array as input')
     if len(input_image) == 0:
         raise ValueError('roi_bbox, expected a non empty array as input')
-    bbox = np.array([])
-    for i in range(len(input_image)):
-        for j in range(len(input_image[i])):
-            pixel=input_image[i][j]
-            print(pixel)
-    #Work in progress
-    return 0
+    len_input_image = len(input_image)
+    left_top = [0,0]
+    right_top = [0, len(input_image[0])]
+    left_bottom = [len_input_image,0]
+    right_bottom = [len_input_image, len(input_image[len_input_image - 1])]
+    return np.array([left_top, left_bottom, right_bottom, right_top])
     
     
     
@@ -125,4 +129,4 @@ image = np.array([[0, 0, 0, 0, 0, 0, 0],
                   [0, 0, 0, 0, 0, 0, 0],
                   [0, 0, 1, 1, 1, 0, 0]]) 
 
-print(roi_bbox(image))
+print('Bounding box : {bbox}'.format(bbox=roi_bbox(image)))
