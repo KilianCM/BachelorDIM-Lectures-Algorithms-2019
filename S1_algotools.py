@@ -125,4 +125,4 @@ image = np.array([[0, 0, 0, 0, 0, 0, 0],
                   [0, 0, 0, 0, 0, 0, 0],
                   [0, 0, 1, 1, 1, 0, 0]]) 
 
-print(roi_bbox(image))    
+print(roi_bbox(image))
