@@ -93,3 +93,26 @@ def test_bounding_box_not_a_numpy_array():
 def test_bouding_box_empty_array():
     with pytest.raises(ValueError):
         s1.roi_bbox(np.array([]))
+        
+####
+#   Random fill sparse unit tests
+####
+'''
+def test_random_fill_correct():
+    tab_list = np.ones((10,10), dtype=np.chararray)
+    tab_list *= ' '
+    assert s1.random_fill_sparse(tab_list,3) == tab_list'''
+    
+def test_random_fill_not_a_numpy_array():
+    with pytest.raises(TypeError):
+        s1.random_fill_sparse(3,3)
+
+def test_random_fill_empty_list():
+    with pytest.raises(ValueError):
+        s1.random_fill_sparse(np.array([]),3)
+
+def test_random_fill_not_a_number():
+    tab_list = np.array([1,2,3,4,5,6])
+    with pytest.raises(TypeError):
+        s1.random_fill_sparse(tab_list,"d")
+        

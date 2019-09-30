@@ -4,11 +4,11 @@ Created on Thu Sep 26 14:17:04 2019
 
 @author: chamiotk
 """
-
+'''
 print('Hello World')
 
 myVariable=0
-print('myVariable=', myVariable)
+print('myVariable=', myVariable)'''
 
 # Averaging
 
@@ -139,14 +139,15 @@ def random_fill_sparse(table, k):
     if len(table) == 0:
         raise ValueError('random_fill_sparse, expected a non empty array as input')
     if not(isinstance(k,int)):
-        raise ValueError('random_fill_sparse, expected an integer for param k')
+        raise TypeError('random_fill_sparse, expected an integer for param k')
 
     for i in range(k):
         rand_row = random.randint(0,table.shape[0]-1)
         rand_col = random.randint(0,table.shape[1]-1)
         table[rand_row][rand_col] = 'X'
     return table
-    
+
+'''    
 #######################               
 #test section
 #######################
@@ -180,4 +181,4 @@ print('Bounding box : {bbox}'.format(bbox=roi_bbox(img)))
 #a = np.ones((10,10),dtype=np.uint8)
 a = np.ones((10,10), dtype=np.chararray)
 a *= ' ' #ascii code for space
-print('Fill  : {filled}'.format(filled=random_fill_sparse(a,20)))
+print('Fill  : {filled}'.format(filled=random_fill_sparse(a,20)))'''
