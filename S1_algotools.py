@@ -32,7 +32,7 @@ def average_above_zero(table):
     #Returns the average 
     #Raises Value error if input param is not a list, if the list is empty and if there's no positive value in table
     if not(isinstance(table,list)):
-        raise ValueError('average_above_zero, expected a list as input')
+        raise TypeError('average_above_zero, expected a list as input')
     if len(table) == 0:
         raise ValueError('average_above_zero, expected a non empty list as input')
     if not(isinstance(table[0], (int,float))):
@@ -57,7 +57,7 @@ def max_value(table):
     #Returns the max value and the index
     #Raises Value error if input param is not a list and if the list is empty
     if not(isinstance(table,list)):
-        raise ValueError('max_value, expected a list as input')
+        raise TypeError('max_value, expected a list as input')
     if len(table) == 0:
         raise ValueError('max_value, expected a non empty list as input')
         
@@ -77,7 +77,7 @@ def reverse_table(table):
     #Returns the reversed table
     #Raises Value error if input param is not a list and if the list is empty
     if not(isinstance(table,list)):
-        raise ValueError('reverse_table, expected a list as input')
+        raise TypeError('reverse_table, expected a list as input')
     if len(table) == 0:
         raise ValueError('reverse_table, expected a non empty list as input')
           
@@ -99,7 +99,7 @@ def roi_bbox(input_image):
     #Returns a numpy array (the bounding box [left top, right top, bottom right, bottom left])
     #Raises Value error if input param is not a numpy aray and if the array is empty
     if not(isinstance(input_image,np.ndarray)):
-        raise ValueError('roi_bbox, expected a numpy array as input')
+        raise TypeError('roi_bbox, expected a numpy array as input')
     if len(input_image) == 0:
         raise ValueError('roi_bbox, expected a non empty array as input')
     
@@ -135,7 +135,7 @@ def random_fill_sparse(table, k):
     #Returns a numpy array filled with some 'X'
     #Raises Value error if input param is not a numpy aray, if the array is empty and if k is not an integer
     if not(isinstance(table,np.ndarray)):
-        raise ValueError('random_fill_sparse, expected a numpy array as input')
+        raise TypeError('random_fill_sparse, expected a numpy array as input')
     if len(table) == 0:
         raise ValueError('random_fill_sparse, expected a non empty array as input')
     if not(isinstance(k,int)):

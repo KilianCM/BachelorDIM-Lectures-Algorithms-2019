@@ -28,7 +28,7 @@ def test_average_correct():
     assert s1.average_above_zero(tab_list) == 3
     
 def test_average_not_a_list():
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         s1.average_above_zero(3)
 
 def test_average_empty_list():
@@ -53,7 +53,7 @@ def test_max_value_correct():
     assert s1.max_value(tab_list) == (6, 4)
     
 def test_max_value_not_a_list():
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         s1.max_value(3)
         
 def test_max_value_empty_list():
@@ -69,9 +69,10 @@ def test_reverse_correct():
     assert s1.reverse_table(tab_list) == [-9, 6,-4, 3, 2, 1]
     
 def test_reverse_not_a_list():
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         s1.reverse_table(3)
         
 def test_reverse_empty_list():
     with pytest.raises(ValueError):
         s1.reverse_table([])
+    
