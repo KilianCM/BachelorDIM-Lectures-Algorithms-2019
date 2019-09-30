@@ -144,7 +144,11 @@ def random_fill_sparse(table, k):
     for i in range(k):
         rand_row = random.randint(0,table.shape[0]-1)
         rand_col = random.randint(0,table.shape[1]-1)
-        table[rand_row][rand_col] = 'X'
+        if table[rand_row,rand_col] != 'X':
+            table[rand_row,rand_col] = 'X'
+        else:
+            # back in one step to have the correct number of 'X'
+            i -= 1
     return table
 
 '''    
