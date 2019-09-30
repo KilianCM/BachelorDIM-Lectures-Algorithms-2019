@@ -44,4 +44,18 @@ def test_average_only_negative_values():
     with pytest.raises(ZeroDivisionError):
         s1.average_above_zero(tab_list)
         
+####
+#   Max value unit tests
+####
+        
+def test_max_value_correct():
+    tab_list=[1,2,3,-4,6,-9] 
+    assert s1.max_value(tab_list) == (6, 4)
     
+def test_max_value_not_a_list():
+    with pytest.raises(ValueError):
+        s1.max_value(3)
+        
+def test_max_value_empty_list():
+    with pytest.raises(ValueError):
+        s1.max_value([])
