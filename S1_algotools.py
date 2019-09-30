@@ -144,7 +144,7 @@ def random_fill_sparse(table, k):
     for i in range(k):
         rand_row = random.randint(0,table.shape[0]-1)
         rand_col = random.randint(0,table.shape[1]-1)
-        table[rand_row][rand_col] = 0
+        table[rand_row][rand_col] = 'X'
     return table
     
 #######################               
@@ -177,6 +177,7 @@ print('Bounding box : {bbox}'.format(bbox=roi_bbox(img)))
 
 ###Random array filling test
 
-a = np.ones((10,10),dtype=np.uint8)
-a *= 32 #ascii code for space
+#a = np.ones((10,10),dtype=np.uint8)
+a = np.ones((10,10), dtype=np.chararray)
+a *= ' ' #ascii code for space
 print('Fill  : {filled}'.format(filled=random_fill_sparse(a,20)))
