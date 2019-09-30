@@ -97,11 +97,12 @@ def test_bouding_box_empty_array():
 ####
 #   Random fill sparse unit tests
 ####
-'''
+
 def test_random_fill_correct():
     tab_list = np.ones((10,10), dtype=np.chararray)
     tab_list *= ' '
-    assert s1.random_fill_sparse(tab_list,3) == tab_list'''
+    tab_filled = s1.random_fill_sparse(tab_list,3)
+    assert len(np.argwhere(tab_filled=='X')) == 3
     
 def test_random_fill_not_a_numpy_array():
     with pytest.raises(TypeError):
