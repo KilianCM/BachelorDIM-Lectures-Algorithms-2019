@@ -46,7 +46,7 @@ def average_above_zero(table):
             som += table[i]
             n += 1
     if n==0:
-        raise ValueError('average_above_zero, expected at least 1 positive value')        
+        raise ZeroDivisionError('average_above_zero, expected at least 1 positive value')        
     return som/n
 
 def max_value(table):
