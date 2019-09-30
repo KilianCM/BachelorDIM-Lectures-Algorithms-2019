@@ -1,5 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/github/albenoit/BachelorDIM-Lectures-Algorithms-2019/badge.svg)](https://coveralls.io/github/albenoit/BachelorDIM-Lectures-Algorithms-2019)
-
 # BachelorDIM-Lectures-Algorithms-2019
 Algorithms, code writing and continuous integration @ DIM Bachelor, Université Savoie Mont Blanc, France
 
