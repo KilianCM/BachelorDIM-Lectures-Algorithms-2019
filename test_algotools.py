@@ -75,4 +75,21 @@ def test_reverse_not_a_list():
 def test_reverse_empty_list():
     with pytest.raises(ValueError):
         s1.reverse_table([])
+
+####
+#   Bounding box unit tests
+####
+import cv2
+import numpy as np
+
+def test_bounding_box_correct():
+    img=cv2.imread('img.png',0)
+    assert (s1.roi_bbox(img) == np.array([[ 91,  95], [ 91, 523], [434, 523], [434,  95]])).prod()
     
+def test_bounding_box_not_a_numpy_array():
+    with pytest.raises(TypeError):
+        s1.roi_bbox(3)
+        
+def test_bouding_box_empty_array():
+    with pytest.raises(ValueError):
+        s1.roi_bbox(np.array([]))
