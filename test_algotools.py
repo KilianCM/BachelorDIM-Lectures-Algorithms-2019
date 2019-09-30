@@ -59,3 +59,19 @@ def test_max_value_not_a_list():
 def test_max_value_empty_list():
     with pytest.raises(ValueError):
         s1.max_value([])
+        
+####
+#   Reverse table unit tests
+####
+        
+def test_reverse_correct():
+    tab_list=[1,2,3,-4,6,-9] 
+    assert s1.reverse_table(tab_list) == [-9, 6,-4, 3, 2, 1]
+    
+def test_reverse_not_a_list():
+    with pytest.raises(ValueError):
+        s1.reverse_table(3)
+        
+def test_reverse_empty_list():
+    with pytest.raises(ValueError):
+        s1.reverse_table([])
