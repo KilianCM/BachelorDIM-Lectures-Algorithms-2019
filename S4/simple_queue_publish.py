@@ -11,6 +11,9 @@ import config
 import getpass
 
 def simple_queue_publish():
+    ##
+    #Function that send the username on the "presentation" queue using the url set in config.py 
+    #Returns nothing
     amqp_url=config.amqp_url
     
     url = os.environ.get('CLOUDAMQP_URL',amqp_url)
@@ -24,8 +27,5 @@ def simple_queue_publish():
     channel.basic_publish(exchange='',
                           routing_key='presentation',
                           body=getpass.getuser())
-                              
-    print(" [x] Sent username")
-        
     connection.close()
     
