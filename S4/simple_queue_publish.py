@@ -27,5 +27,5 @@ def simple_queue_publish():
     channel.basic_publish(exchange='',
                           routing_key='presentation',
                           body=getpass.getuser())
+    print(" [x] Sent '{username}'".format(username=getpass.getuser()))
     connection.close()
-    

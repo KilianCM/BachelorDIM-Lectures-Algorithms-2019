@@ -10,8 +10,20 @@ import pika
 import config
 
 
+count=0
+
 def callback(ch, method, properties, body):
-    print(" [x] Received %r" % body)
+    ##
+    #Function executed when a message enters in a queue and count the number of messages
+    #Args:
+    # @param ch
+    # @param method
+    # @param properties
+    # @param body
+    #Returns nothing
+    global count
+    count += 1
+    print(" Message n{count} Received {body}".format(count=count, body=body))
 
 
 def simple_queue_read():
@@ -34,3 +46,4 @@ def simple_queue_read():
         
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
+
