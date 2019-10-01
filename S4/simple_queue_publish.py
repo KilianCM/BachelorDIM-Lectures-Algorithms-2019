@@ -10,11 +10,12 @@ import pika
 import config
 import getpass
 
-def simple_queue_publish(concurrency):
+def simple_queue_publish(concurrency = False, number = 1):
     ##
     #Function that send the username on the "presentation" queue using the url set in config.py 
     #Args:
     # @param concurrency 
+    # @param number of message to send
     #Returns nothing
     amqp_url=config.amqp_url
     
@@ -32,9 +33,10 @@ def simple_queue_publish(concurrency):
     
     channel = connection.channel()
     channel.queue_declare(queue='presentation')
-    channel.basic_publish(exchange='',
-                          routing_key='presentation',
-                          body=getpass.getuser(),
-                          properties=properties)
-    print(" [x] Sent '{username}'{persistent}".format(username=getpass.getuser(), persistent=str_persistent))
+    for i in range(number):
+        channel.basic_publish(exchange='',
+                              routing_key='presentation',
+                              body=getpass.getuser(),
+                              properties=properties)
+        print(" [{i}] Sent '{username}'{persistent}".format(i=i+1, username=getpass.getuser(), persistent=str_persistent))
     connection.close()
