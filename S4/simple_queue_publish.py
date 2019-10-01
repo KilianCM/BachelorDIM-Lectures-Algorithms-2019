@@ -13,6 +13,8 @@ import getpass
 def simple_queue_publish(concurrency):
     ##
     #Function that send the username on the "presentation" queue using the url set in config.py 
+    #Args:
+    # @param concurrency 
     #Returns nothing
     amqp_url=config.amqp_url
     

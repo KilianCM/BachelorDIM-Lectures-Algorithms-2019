@@ -21,14 +21,14 @@ def callback(ch, method, properties, body):
     # @param properties
     # @param body
     #Returns nothing
-    global count
-    count += 1
-    print(" Message n{count} Received {body}".format(count=count, body=body))
+    print(" Message n{count} Received {body}".format(count=method.delivery_tag, body=body))
+    ch.basic_ack(method.delivery_tag)
 
-
-def simple_queue_read():
+def simple_queue_read(concurrency):
     ##
     #Function that listens the "presentation" queue using the url set in config.py and print each message 
+    #Args:
+    #   @param concurrency
     #Returns nothing
     amqp_url=config.amqp_url
     
@@ -41,8 +41,8 @@ def simple_queue_read():
     channel = connection.channel()
     channel.queue_declare(queue='presentation')
     channel.basic_consume(queue='presentation',
-                          on_message_callback=callback,                          
-                          auto_ack=True)
+                          on_message_callback=callback,                 
+                          auto_ack=False)
         
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()

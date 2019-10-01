@@ -21,7 +21,7 @@ parser.add_argument('-c', '--concurrency', action='store_true',
 args = parser.parse_args()
 
 if(args.read):
-    read.simple_queue_read()
+    read.simple_queue_read(args.concurrency)
 elif(args.publish):
     publish.simple_queue_publish(args.concurrency)
 else:
