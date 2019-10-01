@@ -15,12 +15,14 @@ parser.add_argument('-r', '--read', action='store_true',
                     help='Read the presentation queue')
 parser.add_argument('-p', '--publish', action='store_true',
                     help='Publish username on the presentation queue')
+parser.add_argument('-c', '--concurrency', action='store_true',
+                    help='Activate persitent messages')
 
 args = parser.parse_args()
 
 if(args.read):
     read.simple_queue_read()
 elif(args.publish):
-    publish.simple_queue_publish()
+    publish.simple_queue_publish(args.concurrency)
 else:
     print("Please specify -r to read or -p to publish")

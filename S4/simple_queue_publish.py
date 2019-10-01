@@ -10,7 +10,7 @@ import pika
 import config
 import getpass
 
-def simple_queue_publish():
+def simple_queue_publish(concurrency):
     ##
     #Function that send the username on the "presentation" queue using the url set in config.py 
     #Returns nothing
@@ -22,10 +22,17 @@ def simple_queue_publish():
     
     connection = pika.BlockingConnection(params) # Connect to CloudAMQP
     
+    properties = pika.BasicProperties()
+    str_persistent = ""
+    if concurrency:
+        properties.delivery_mode = 2
+        str_persistent = " with persistent mode"
+    
     channel = connection.channel()
     channel.queue_declare(queue='presentation')
     channel.basic_publish(exchange='',
                           routing_key='presentation',
-                          body=getpass.getuser())
-    print(" [x] Sent '{username}'".format(username=getpass.getuser()))
+                          body=getpass.getuser(),
+                          properties=properties)
+    print(" [x] Sent '{username}'{persistent}".format(username=getpass.getuser(), persistent=str_persistent))
     connection.close()
