@@ -19,10 +19,12 @@ parser.add_argument('-c', '--concurrency', action='store_true',
                     help='Activate persitent messages')
 parser.add_argument('-n', type=int, default=1, action='store',
                     help='Number of messages to send (default 1)')
+parser.add_argument('-s','--slow', action='store_true',
+                    help='Create a slow reader (1 sec between each message)')
 args = parser.parse_args()
 
 if(args.read):
-    read.simple_queue_read(args.concurrency)
+    read.simple_queue_read(args.concurrency, args.slow)
 elif(args.publish):
     publish.simple_queue_publish(args.concurrency, args.n)
 else:
