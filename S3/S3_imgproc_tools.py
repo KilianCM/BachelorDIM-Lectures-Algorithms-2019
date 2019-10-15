@@ -14,6 +14,11 @@ img_gray=cv2.imread(img_name,0)
 img_bgr=cv2.imread(img_name,1)
 
 def invert_colors_manual(input_img):
+    ##
+    #Function that inverts colors of an image manually
+    #Args:
+    #    @param input_img: the image to invert
+    #Returns the image with inverted colors
     '''
     ####  slooooow ####
     row=input_img.shape[0]
@@ -28,9 +33,27 @@ def invert_colors_manual(input_img):
     '''
     return 255-input_img        
  
+def invert_colors_numpy(input_img):
+    ##
+    #Function that inverts colors of an image using numpy
+    #Args:
+    #    @param input_img: the image to invert
+    #Returns the image with inverted colors
+    return np.invert(input_img)
+
+def invert_colors_cv2(input_img):
+    ##
+    #Function that inverts colors of an image using cv2
+    #Args:
+    #    @param input_img: the image to invert
+    #Returns the image with inverted colors
+    return cv2.bitwise_not(input_img)
+
 
 #### Test section #############           
                 
-inverted_colors_img = invert_colors_manual(img_bgr)
+#inverted_colors_img = invert_colors_manual(img_bgr)
+#inverted_colors_img = invert_colors_numpy(img_bgr)
+inverted_colors_img = invert_colors_cv2(img_bgr)
 cv2.imshow("Inverted colors", inverted_colors_img)
 cv2.waitKey()                
