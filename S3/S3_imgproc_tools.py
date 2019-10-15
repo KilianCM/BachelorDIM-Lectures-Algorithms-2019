@@ -72,4 +72,32 @@ print(t.timeit(number=1))
 Results :
 0.017358299999955307
 0.017614799999932984
-0.009377900000004047'''     
+0.009377900000004047'''   
+
+########## image thresholding
+
+def threshold_image_manual(input_img):
+    return 1.0 * (input_img > 127)
+    
+def threshold_image_numpy(input_img):
+    return np.where(input_img > 127, 1, 0)
+
+def threshold_colors_opencv(input_img):
+    return cv2.threshold(input_img,127,255,cv2.THRESH_BINARY)
+
+#### Test section #############           
+                
+#inverted_colors_img = threshold_image_manual(img_bgr)
+inverted_colors_img = threshold_image_numpy(img_bgr)
+#inverted_colors_img = threshold_image_cv2(img_bgr)
+cv2.imshow("Inverted colors", inverted_colors_img)
+cv2.waitKey()   
+
+t = Timer(lambda: threshold_image_manual(img_bgr))
+print(t.timeit(number=1))      
+
+t = Timer(lambda: threshold_image_numpy(img_bgr))
+print(t.timeit(number=1)) 
+
+t = Timer(lambda: threshold_colors_opencv(img_bgr))
+print(t.timeit(number=1))
