@@ -7,9 +7,7 @@ Test step 1: avec le mode 'SEND' ligne 14, lancer plusieurs fois le script pour 
 Test step 2: modifier la ligne 14 en mettant autre chose que 'SEND' dans la variable mode et lancer le script. Celui ci doit alors dépiler les messages envoyés dans le cloud et les afficher
 """
 #import urlparse
-import os
-import pika
-import config
+import amqp_utils as ampq
 
 mode='SEND' #set 'SEND' mode is you will to send rather than receive messages
 
@@ -18,15 +16,7 @@ def callback(ch, method, properties, body):
     print(" [x] Received %r" % body)
 
 
-amqp_url=config.amqp_url
-
-
-# Parse CLODUAMQP_URL (fallback to localhost)
-url = os.environ.get('CLOUDAMQP_URL',amqp_url)
-params = pika.URLParameters(url)
-params.socket_timeout = 5
-
-connection = pika.BlockingConnection(params) # Connect to CloudAMQP
+connection = amqp.connection() 
 
 channel = connection.channel()
 

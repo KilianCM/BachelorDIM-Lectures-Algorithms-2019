@@ -5,10 +5,9 @@ Created on Tue Oct  1 08:31:57 2019
 @author: chamiotk
 """
 
-import os
 import pika
-import config
 import getpass
+import amqp_utils as amqp
 
 def simple_queue_publish(concurrency = False, number = 1):
     ##
@@ -17,13 +16,7 @@ def simple_queue_publish(concurrency = False, number = 1):
     # @param concurrency 
     # @param number of message to send
     #Returns nothing
-    amqp_url=config.amqp_url
-    
-    url = os.environ.get('CLOUDAMQP_URL',amqp_url)
-    params = pika.URLParameters(url)
-    params.socket_timeout = 5
-    
-    connection = pika.BlockingConnection(params) # Connect to CloudAMQP
+    connection = amqp.connection() 
     
     properties = pika.BasicProperties()
     str_persistent = ""

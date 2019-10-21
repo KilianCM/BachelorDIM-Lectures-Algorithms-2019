@@ -5,10 +5,8 @@ Created on Tue Oct  1 08:37:24 2019
 @author: chamiotk
 """
 
-import os
-import pika
-import config
 import time
+import amqp_utils as amqp
 
 def callback(ch, method, properties, body):
     ##
@@ -40,14 +38,8 @@ def simple_queue_read(concurrency, slow = False):
     #Function that listens the "presentation" queue using the url set in config.py and print each message 
     #Args:
     #   @param concurrency
-    #Returns nothing
-    amqp_url=config.amqp_url
-    
-    url = os.environ.get('CLOUDAMQP_URL',amqp_url)
-    params = pika.URLParameters(url)
-    params.socket_timeout = 5
-    
-    connection = pika.BlockingConnection(params) # Connect to CloudAMQP
+    #Returns nothing   
+    connection = amqp.connection() 
         
     channel = connection.channel()
     channel.queue_declare(queue='presentation')

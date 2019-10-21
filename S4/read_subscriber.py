@@ -15,7 +15,7 @@ def read_subscriber():
     queue_name = result.method.queue
         
     channel.queue_bind(exchange='posts', queue=queue_name)
-    channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=False)
+    channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
     
