@@ -151,6 +151,26 @@ def random_fill_sparse(table, k):
     
     return table
 
+def remove_whitespace(string):
+    ##
+    # Function that removes whitespace in a string
+    # Args:
+    #    @param string: the text to remove whitespace
+    # Returns the string without whitespace
+    # Raises Value error if the string is empty 
+
+    if len(string) == 0:
+        raise ValueError('remove_whitespace, expected a non empty string as input')
+
+    string_without_spaces = ""
+    len_string = len(string)
+    for i in range(len_string):
+        if string[i] != " ":
+            string_without_spaces += string[i]
+    
+    return string_without_spaces
+
+
 ''' 
 #######################               
 #test section
@@ -186,3 +206,7 @@ print('Bounding box : {bbox}'.format(bbox=roi_bbox(img)))
 a = np.ones((10,10), dtype=np.chararray)
 a *= ' ' #ascii code for space
 print('Fill  : {filled}'.format(filled=random_fill_sparse(a,20)))'''
+
+###Remove whitespace test
+str = "Texte avec des espaces "
+print('Remove white space : {str}'.format(str=remove_whitespace(str)))
