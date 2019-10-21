@@ -117,3 +117,16 @@ def test_random_fill_not_a_number():
     with pytest.raises(TypeError):
         s1.random_fill_sparse(tab_list,"d")
         
+####
+# Remove whitespace unit tests
+####
+        
+def test_remove_whitespace_correct():
+    string = "Texte avec des espaces "
+    assert s1.remove_whitespace(string) == "Texteavecdesespaces"
+    
+def test_remove_whitespace_empty_string():
+    string = ""
+    with pytest.raises(ValueError):
+        s1.remove_whitespace(string)
+    
