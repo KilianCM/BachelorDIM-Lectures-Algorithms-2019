@@ -5,9 +5,6 @@ Created on Mon Oct 21 08:46:41 2019
 @author: chamiotk
 """
 
-import os
-import pika
-import config
 import amqp_utils as amqp
 
 def publish_fanout():
