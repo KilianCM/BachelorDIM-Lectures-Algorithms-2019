@@ -170,6 +170,30 @@ def remove_whitespace(string):
     
     return string_without_spaces
 
+def sort_bubble(table):
+    ##
+    # Function that sorts a table with the bubble method
+    # Args:
+    #    @param table: the table to sort
+    # Returns the sorted table
+    # Raises Value error if the table is empty and TypeError if table is not a list
+    if not(isinstance(table,list)):
+        raise TypeError('sort_bubble, expected a list as input')
+    if len(table) == 0:
+        raise ValueError('sort_bubble, expected a non empty list as input')
+    table_sorted = False
+    table_len = len(table) - 1
+
+    while table_sorted != True:
+        table_sorted = True
+        for i in range(table_len):
+            if table[i] > table[i+1]:
+                save = table[i+1]
+                table[i+1] = table[i]
+                table[i] = save
+                table_sorted = False
+        table_len = table_len - 1
+    return table
 
 ''' 
 #######################               
@@ -205,8 +229,12 @@ print('Bounding box : {bbox}'.format(bbox=roi_bbox(img)))
 #a = np.ones((10,10),dtype=np.uint8)
 a = np.ones((10,10), dtype=np.chararray)
 a *= ' ' #ascii code for space
-print('Fill  : {filled}'.format(filled=random_fill_sparse(a,20)))'''
+print('Fill  : {filled}'.format(filled=random_fill_sparse(a,20)))
 
 ###Remove whitespace test
 str = "Texte avec des espaces "
-print('Remove white space : {str}'.format(str=remove_whitespace(str)))
+print('Remove white space : {str}'.format(str=remove_whitespace(str)))'''
+
+###Sort bubble test
+table = [10, 15, 7, 1, 3, 3, 9]
+print("Bubble sort : {table}".format(table=sort_bubble(table)))

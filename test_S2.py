@@ -129,4 +129,18 @@ def test_remove_whitespace_empty_string():
     string = ""
     with pytest.raises(ValueError):
         s1.remove_whitespace(string)
-    
+
+####
+# Bubble sort unit tests
+####
+def test_bubble_correct():
+    tab_list = [10, 15, 7, 1, 3, 3, 9]
+    assert s1.sort_bubble(tab_list) == [1, 3, 3, 7, 9, 10, 15]
+
+def test_bubble_not_a_list():
+    with pytest.raises(TypeError):
+        s1.sort_bubble(3)
+
+def test_bubble_empty_list():
+    with pytest.raises(ValueError):
+        s1.sort_bubble([])
