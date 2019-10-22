@@ -144,3 +144,18 @@ def test_bubble_not_a_list():
 def test_bubble_empty_list():
     with pytest.raises(ValueError):
         s1.sort_bubble([])
+
+####
+# Selective sort unit tests
+####
+def test_selective_correct():
+    tab_list = [10, 15, 7, 1, 3, 3, 9]
+    assert s1.sort_selective(tab_list) == [1, 3, 3, 7, 9, 10, 15]
+
+def test_selective_not_a_list():
+    with pytest.raises(TypeError):
+        s1.sort_selective(3)
+
+def test_selective_empty_list():
+    with pytest.raises(ValueError):
+        s1.sort_selective([])

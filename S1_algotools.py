@@ -195,6 +195,31 @@ def sort_bubble(table):
         table_len = table_len - 1
     return table
 
+def sort_selective(table):
+    ##
+    # Function that sorts a table with the selective method
+    # Args:
+    #    @param table: the table to sort
+    # Returns the sorted table
+    # Raises Value error if the table is empty and TypeError if table is not a list
+    if not(isinstance(table,list)):
+        raise TypeError('sort_selective, expected a list as input')
+    if len(table) == 0:
+        raise ValueError('sort_selective, expected a non empty list as input')
+    exchange = False
+    len_table = len(table)
+    for i in range(len_table):
+        min_index = i
+        for j in range(i+1, len_table):
+            if table[j] < table[min_index]:
+                min_index = j
+                exchange = True
+        if exchange:
+            save = table[i]
+            table[i] = table[min_index]
+            table[min_index] = save
+    return table
+
 ''' 
 #######################               
 #test section
@@ -233,8 +258,12 @@ print('Fill  : {filled}'.format(filled=random_fill_sparse(a,20)))
 
 ###Remove whitespace test
 str = "Texte avec des espaces "
-print('Remove white space : {str}'.format(str=remove_whitespace(str)))'''
+print('Remove white space : {str}'.format(str=remove_whitespace(str)))
 
 ###Sort bubble test
 table = [10, 15, 7, 1, 3, 3, 9]
-print("Bubble sort : {table}".format(table=sort_bubble(table)))
+print("Bubble sort : {table}".format(table=sort_bubble(table)))'''
+
+###Sort selective test
+table = [10, 15, 7, 1, 3, 3, 9]
+print("Selective sort : {table}".format(table=sort_selective(table)))
